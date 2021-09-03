@@ -45,9 +45,7 @@ router.put(
 router.delete("/:id", validateProjectID, (req, res, next) => {
   const { id } = req.params;
   Project.remove(id)
-    .then(() => {
-      next();
-    })
+    .then(() => next())
     .catch(next);
 });
 
