@@ -11,7 +11,7 @@ const {
 router.get("/", (req, res, next) => {
   Project.get()
     .then((projects) => {
-      projects ? res.json(projects) : res.json([]);
+      res.json(projects);
     })
     .catch(next);
 });
@@ -51,9 +51,14 @@ router.delete("/:id", validateProjectID, (req, res, next) => {
     .catch(next);
 });
 
-// router.get("/", (req, res) => {
-
-// });
+router.get("/:id/actions", validateProjectID, (req, res, next) => {
+  const { id } = req.params;
+  Project.getProjectActions(id)
+    .then((projects) => {
+      res.json(projects);
+    })
+    .catch(next);
+});
 
 router.use((err, req, res, next) => {
   res.status(err.status || 500).json({
